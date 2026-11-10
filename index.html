@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kita Wrapped 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: story-card player (9:16) on the left, a "catatan arah" director's panel on the right that follows the active slide. Single committed dark look. */
+:root{
+  --ink:#1d1426;        /* page ground, plum-ink */
+  --ink-2:#2a1f35;
+  --paper:#fff3dc;
+  --muted:#b9a9c9;
+  --sambal:#ff5a36;
+  --terpal:#2b2ad6;
+  --kunyit:#ffd23f;
+  --pisang:#3fae6a;
+  --jambu:#ff8fb1;
+  --terong:#7b5cff;
+  --f-display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:24px}
+header.top h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,5vw,40px);letter-spacing:-.02em;margin:0;line-height:1}
+header.top p{margin:0;color:var(--muted);max-width:52ch}
+.tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--kunyit);padding:3px 8px;border-radius:3px;white-space:nowrap}
+
+.stage{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:760px){.stage{grid-template-columns:minmax(0,1fr)}.player{margin:0 auto}}
+
+/* Player */
+.player{width:100%;max-width:380px}
+.card{position:relative;width:100%;max-width:100%;aspect-ratio:9/16;border-radius:22px;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none;background:var(--bg);color:var(--fg);transition:background .45s ease,color .45s ease;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.bars{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:3}
+.bars button{flex:1;height:4px;border:0;padding:0;border-radius:2px;background:color-mix(in srgb,var(--fg) 28%,transparent);cursor:pointer;position:relative;overflow:hidden}
+.bars button.done::after,.bars button.on::after{content:"";position:absolute;inset:0;background:var(--fg)}
+.brand{position:absolute;top:26px;left:16px;right:16px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.75;z-index:3}
+.slide{position:absolute;inset:0;padding:64px 22px 24px;display:flex;flex-direction:column;gap:12px}
+.slide.enter > *{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+.slide.enter > *:nth-child(2){animation-delay:.06s}
+.slide.enter > *:nth-child(3){animation-delay:.12s}
+.slide.enter > *:nth-child(4){animation-delay:.18s}
+.slide.enter > *:nth-child(5){animation-delay:.24s}
+@keyframes rise{from{transform:translateY(14px);opacity:.001}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.slide.enter > *{animation:none}.card{transition:none}}
+
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.lead{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.1;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.huge{font-family:var(--f-display);font-weight:800;font-size:76px;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:0}
+.big{font-family:var(--f-display);font-weight:800;font-size:40px;line-height:.95;letter-spacing:-.03em;text-wrap:balance;margin:0}
+.small{font-size:13.5px;line-height:1.45;margin:0;opacity:.9}
+.spacer{flex:1}
+.rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.rows li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:14px;border-top:1px solid color-mix(in srgb,var(--fg) 22%,transparent);padding-top:7px}
+.rows .n{font-family:var(--f-mono);font-size:11px;opacity:.7}
+.rows .v{font-family:var(--f-mono);font-size:12px;font-variant-numeric:tabular-nums}
+.rows .t{min-width:0}
+.rows .t small{display:block;opacity:.7;font-size:12px}
+.split{display:flex;height:34px;border-radius:6px;overflow:hidden;font-family:var(--f-mono);font-size:11.5px}
+.split div{display:flex;align-items:center;padding:0 10px}
+.hours{display:flex;align-items:flex-end;gap:2px;height:110px}
+.hours div{flex:1;background:color-mix(in srgb,var(--fg) 35%,transparent);border-radius:2px 2px 0 0;min-height:2px}
+.hours div.peak{background:var(--kunyit)}
+.axis{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;opacity:.7}
+.words{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.words span{font-family:var(--f-display);font-weight:800;letter-spacing:-.03em;line-height:1}
+.words small{font-family:var(--f-mono);font-size:10px;font-weight:500;opacity:.7;margin-left:3px;letter-spacing:0}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:80px}
+.months div{background:var(--fg);border-radius:2px;opacity:.85}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+.grid2 div{border-top:2px solid var(--fg);padding-top:6px;min-width:0}
+.grid2 b{display:block;font-family:var(--f-display);font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.grid2 span{font-size:11.5px;opacity:.8;display:block}
+.traits{display:flex;flex-wrap:wrap;gap:6px}
+.traits span{border:1.5px solid var(--fg);border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:600}
+.hint{font-family:var(--f-mono);font-size:10.5px;opacity:.7;letter-spacing:.06em}
+
+.ctrl{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
+.ctrl button{font:600 13px var(--f-body);color:var(--paper);background:var(--ink-2);border:1px solid #3d2f4b;border-radius:8px;padding:9px 14px;cursor:pointer}
+.ctrl button:hover{background:#352843}
+.ctrl button:disabled{opacity:.35;cursor:default}
+.ctrl .count{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+button:focus-visible,.card:focus-visible{outline:2px solid var(--kunyit);outline-offset:3px}
+
+/* Notes panel */
+.notes{min-width:0}
+.notes .label{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.notes h2{font-family:var(--f-display);font-weight:800;font-size:28px;letter-spacing:-.02em;line-height:1.05;margin:6px 0 18px;text-wrap:balance}
+.notes dl{margin:0;display:flex;flex-direction:column;gap:16px}
+.notes dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--kunyit);margin-bottom:4px}
+.notes dd{margin:0;max-width:62ch}
+.notes dd ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.alt{display:flex;flex-direction:column;gap:6px}
+.alt q{display:block;quotes:none;background:var(--ink-2);border-left:3px solid var(--jambu);padding:7px 11px;border-radius:0 6px 6px 0;font-size:14px}
+
+.brief{margin-top:56px;border-top:1px solid #3d2f4b;padding-top:28px}
+.brief h2{font-family:var(--f-display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin:0 0 6px}
+.brief > p{color:var(--muted);margin:0 0 22px;max-width:62ch}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.cols h3{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--kunyit);margin:0 0 10px;font-weight:500}
+.cols ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cols .tpl{background:var(--ink-2);border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.6}
+.cols .tpl em{color:var(--jambu);font-style:normal}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <h1>Kita Wrapped</h1><span class="tag">Contoh · data karangan</span>
+    </div>
+    <p>Klik kartunya buat lanjut (sisi kiri buat mundur), atau pakai tombol panah. Panel kanan jelasin tiap slide butuh data apa dan gimana ngarahinnya.</p>
+  </header>
+
+  <div class="stage">
+    <div class="player">
+      <div class="card" id="card" tabindex="0" role="region" aria-label="Slide Kita Wrapped" aria-live="polite">
+        <div class="bars" id="bars"></div>
+        <div class="brand"><span>Kita Wrapped</span><span>2026</span></div>
+        <div id="slot"></div>
+      </div>
+      <div class="ctrl">
+        <button id="prev" type="button">← Sebelumnya</button>
+        <span class="count" id="count">1 / 11</span>
+        <button id="next" type="button">Lanjut →</button>
+      </div>
+    </div>
+
+    <aside class="notes" id="notes" aria-live="polite"></aside>
+  </div>
+
+  <section class="brief">
+    <h2>Cara ngarahin versi aslinya</h2>
+    <p>Kalau mau dibikinin versi beneran, kirim tiga hal ini. Makin lengkap datanya, makin spesifik dan lucu hasilnya.</p>
+    <div class="cols">
+      <div>
+        <h3>1 · Bahan data</h3>
+        <ul>
+          <li><b>Chat WhatsApp</b>: buka chat → ⋮ → Lainnya → Ekspor chat → Tanpa media. Hasilnya file .txt.</li>
+          <li><b>Lagu</b>: screenshot "Recently played" / playlist bersama, atau tulis manual 5 lagu kalian.</li>
+          <li><b>Tempat</b>: Google Maps Timeline, riwayat GoFood/GrabFood, atau daftar ingatan sendiri.</li>
+          <li><b>Momen</b>: tanggal jadian, berantem paling konyol, kebiasaan aneh, panggilan sayang.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>2 · Arah & nada</h3>
+        <ul>
+          <li><b>Nada</b>: gemes, roasting tipis, atau mellow terharu? Bisa campur, tapi pilih satu yang dominan.</li>
+          <li><b>Panjang</b>: 6–8 slide biasanya pas. Lebih dari 12 mulai capek di-tap.</li>
+          <li><b>Penutup</b>: slide terakhir mau ringkasan, ucapan, atau pertanyaan (misal ajakan date)?</li>
+          <li><b>Rahasia</b>: tandai apa yang nggak boleh muncul (nama mantan, topik sensitif).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>3 · Contoh brief</h3>
+        <div class="tpl">"Buat Kita Wrapped buat <em>Nadia</em>, anniv <em>2 tahun</em>. Nadanya <em>gemes + roasting dikit</em>. Pakai chat WA terlampir. Wajib ada: <em>pecel lele depan kampus</em>, lagu <em>Komang</em>, rekor <em>telat jemput</em>. Slide terakhir <em>ajakan dinner Sabtu</em>. Jangan sebut <em>kerjaan kantor</em>."</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+const C = {ink:"#1d1426",paper:"#fff3dc",sambal:"#ff5a36",terpal:"#2b2ad6",kunyit:"#ffd23f",pisang:"#3fae6a",jambu:"#ff8fb1",terong:"#7b5cff"};
+const fmt = n => n.toLocaleString("id-ID");
+const num = (n, cls="huge") => `<p class="${cls}" data-count="${n}">${fmt(n)}</p>`;
+
+const hours = [22,14,6,2,1,1,2,9,18,20,16,19,31,24,17,15,18,22,26,34,41,49,62,71];
+const months = [14,15,18,12,17,16,19,13,15,20,16,12];
+
+const slides = [
+ { bg:C.sambal, fg:C.ink, html:`
+   <div class="eyebrow">Raka & Nadia · 1 Jan – 10 Nov 2026</div>
+   <div class="spacer"></div>
+   <p class="huge" style="font-size:88px">Kita<br>Wrapped</p>
+   <p class="lead">Setahun lagi kita bareng. Ini rangkuman kecilnya, dari ribuan chat dan ratusan piring lele.</p>
+   <p class="hint">TAP UNTUK MULAI →</p>`,
+   note:{title:"Pembuka", data:["Nama panggilan berdua","Rentang waktu (setahun terakhir, atau sejak jadian)"],
+     source:"Kamu sendiri.",
+     tips:["Kalimat pembuka nentuin nada semua slide setelahnya.","Kalau buat anniv, ganti periode jadi 'sejak 14 Feb 2024'."],
+     alt:["Tahun ini kamu sibuk, tapi masih sempet balesin aku 48 ribu kali.","Spoiler: kamu yang lebih sering bilang kangen."]}},
+
+ { bg:C.terpal, fg:C.paper, html:`
+   <div class="eyebrow">Total chat tahun ini</div>
+   <p class="lead">Kita saling kirim</p>
+   ${num(48312)}
+   <p class="lead">pesan. Rata-rata 154 per hari.</p>
+   <div class="spacer"></div>
+   <div class="split"><div style="width:54%;background:${C.jambu};color:${C.ink}">Nadia 54%</div><div style="width:46%;background:${C.kunyit};color:${C.ink}">Raka 46%</div></div>
+   <p class="small">Nadia lebih cerewet 3.864 pesan. Data nggak bohong.</p>`,
+   note:{title:"Total chat", data:["Jumlah pesan total","Jumlah pesan per orang"],
+     source:"File ekspor WhatsApp (.txt). Tiap baris diawali tanggal dan nama pengirim, jadi gampang dihitung.",
+     tips:["Angka besar butuh pembanding biar kerasa: per hari, atau 'setara baca novel 9 kali'.","Bagian 'siapa lebih cerewet' biasanya paling bikin ketawa."],
+     alt:["Kalau dibaca nonstop, butuh 2 hari 7 jam.","Pesan terpanjang: 412 kata, dikirim jam 02.13."]}},
+
+ { bg:C.kunyit, fg:C.ink, html:`
+   <div class="eyebrow">Pertanyaan paling penting</div>
+   <p class="lead">Jumlah chat "udah makan belum?"</p>
+   ${num(1284)}
+   <div class="spacer"></div>
+   <ul class="rows">
+     <li><span class="n">01</span><span class="t">"udah makan belum?"</span><span class="v">512</span></li>
+     <li><span class="n">02</span><span class="t">"udh mkn?"</span><span class="v">398</span></li>
+     <li><span class="n">03</span><span class="t">"makan dulu sana"</span><span class="v">241</span></li>
+     <li><span class="n">04</span><span class="t">"jangan lupa makan ya"</span><span class="v">133</span></li>
+   </ul>
+   <p class="small">Paling sering ditanya jam 12.40 dan 19.15.</p>`,
+   note:{title:"Kalimat andalan", data:["Satu kalimat khas kalian dan semua variasi ketikannya"],
+     source:"Cari di file chat. Hitung semua variasi typo-nya juga, itu yang bikin lucu.",
+     tips:["Pilih kalimat yang cuma kalian yang pake, bukan 'sayang' biasa.","Variasi ketikan (udh mkn?) bikin slide ini kerasa personal."],
+     alt:["\"otw\" diketik 1.977 kali. Beneran otw: 23%.","\"bentar ya\" 806 kali. Rata-rata bentarnya 47 menit."]}},
+
+ { bg:C.ink, fg:C.paper, html:`
+   <div class="eyebrow">Jam paling rame</div>
+   <p class="big">23.47</p>
+   <p class="lead">Katanya mau tidur jam 10.</p>
+   <div class="spacer"></div>
+   <div class="hours" aria-label="Jumlah chat per jam, puncak jam 23">${hours.map((h,i)=>`<div class="${i===23?'peak':''}" style="height:${h/71*100}%"></div>`).join("")}</div>
+   <div class="axis"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+   <p class="small">71% chat kita kejadian setelah jam 9 malam.</p>`,
+   note:{title:"Jam aktif", data:["Jumlah pesan per jam (00–23)"],
+     source:"Jam tiap pesan ada di file ekspor WhatsApp.",
+     tips:["Grafik kecil kayak gini cukup. Yang penting punchline-nya.","Bisa diganti 'hari paling rame' (misal Minggu) kalau lebih menarik."],
+     alt:["Chat paling pagi: 04.51, 'kamu udah bangun?'","Hari paling sepi: Senin. Semua orang capek."]}},
+
+ { bg:C.pisang, fg:C.ink, html:`
+   <div class="eyebrow">Tempat makan terfavorit</div>
+   <p class="big">Warung pecel lele depan kampus</p>
+   <p class="lead"><span data-count="37">37</span> kali. Mas-nya udah hafal pesanan.</p>
+   <div class="spacer"></div>
+   <ul class="rows">
+     <li><span class="n">02</span><span class="t">Mie ayam Pak Kumis</span><span class="v">21×</span></li>
+     <li><span class="n">03</span><span class="t">Seblak Teh Euis</span><span class="v">14×</span></li>
+     <li><span class="n">04</span><span class="t">Angkringan Mas Jo</span><span class="v">11×</span></li>
+     <li><span class="n">05</span><span class="t">Kedai kopi pojok gang</span><span class="v">9×</span></li>
+   </ul>
+   <p class="small">Pesanan wajib: lele 2, tempe 1, es teh manis 2. Kira-kira Rp1,3 juta setahun di satu warung.</p>`,
+   note:{title:"Tempat makan", data:["Daftar tempat + berapa kali ke sana","Menu yang selalu dipesan","(opsional) total pengeluaran"],
+     source:"Google Maps Timeline, riwayat GoFood/GrabFood, atau tebakan dari ingatan. Hitungan kasar juga oke.",
+     tips:["Nama tempat tulis kayak kalian nyebutnya sehari-hari, bukan nama resminya.","Detail kecil (pesanan wajib) lebih ngena daripada angka."],
+     alt:["Tempat pertama kali makan bareng: masih ingat nggak?","Paling sering bilang 'terserah', akhirnya ke sini juga."]}},
+
+ { bg:C.jambu, fg:C.ink, html:`
+   <div class="eyebrow">Lagu yang paling sering kita dengerin</div>
+   <p class="big">Komang</p>
+   <p class="lead">Raim Laode · diputer <span data-count="214">214</span> kali</p>
+   <div class="spacer"></div>
+   <ul class="rows">
+     <li><span class="n">02</span><span class="t">Evaluasi<small>Hindia</small></span><span class="v">162</span></li>
+     <li><span class="n">03</span><span class="t">Tak Segampang Itu<small>Anggi Marito</small></span><span class="v">131</span></li>
+     <li><span class="n">04</span><span class="t">Sial<small>Mahalini</small></span><span class="v">98</span></li>
+     <li><span class="n">05</span><span class="t">Kita Usahakan Rumah Itu<small>Sal Priadi</small></span><span class="v">87</span></li>
+   </ul>
+   <p class="small">61 kali di antaranya diputer di motor, satu earphone berdua.</p>`,
+   note:{title:"Lagu", data:["5 lagu teratas","(opsional) jumlah putar dan cerita di baliknya"],
+     source:"Spotify/YouTube Music: playlist bersama atau Wrapped masing-masing. Atau tulis manual lagu yang 'lagu kita banget'.",
+     tips:["Kalau nggak ada angka putar, ganti dengan cerita: 'lagu yang diputer pas pertama jalan'.","Lagu di sini cuma contoh. Ganti dengan lagu kalian."],
+     alt:["Lagu yang kamu skip tiap kali aku puter: …","Lagu yang selalu kamu nyanyiin fals di motor."]}},
+
+ { bg:C.terong, fg:C.paper, html:`
+   <div class="eyebrow">Kata yang paling sering kita ketik</div>
+   <div class="spacer" style="flex:.4"></div>
+   <div class="words">
+     <span style="font-size:72px">wkwk<small>9.020</small></span>
+     <span style="font-size:46px">sayang<small>4.411</small></span>
+     <span style="font-size:38px">hehe<small>3.208</small></span>
+     <span style="font-size:32px">otw<small>1.977</small></span>
+     <span style="font-size:26px">lucu bgt<small>1.102</small></span>
+     <span style="font-size:22px">kangen<small>874</small></span>
+     <span style="font-size:18px">gapapa<small>311</small></span>
+   </div>
+   <div class="spacer"></div>
+   <p class="small">"gapapa" muncul 311 kali. Yang beneran gapapa: kita nggak tahu.</p>`,
+   note:{title:"Kata favorit", data:["Daftar kata paling sering + jumlahnya"],
+     source:"Hitung otomatis dari file chat. Buang kata umum (yang, aku, di, ya).",
+     tips:["Ukuran huruf ngikutin jumlah, jadi langsung kebaca mana yang menang.","Satu kalimat roasting di bawah bikin slide ini hidup."],
+     alt:["Panggilan sayang paling sering: 'beb' (2.104).","Stiker paling sering dikirim: kucing nangis."]}},
+
+ { bg:C.ink, fg:C.paper, html:`
+   <div class="eyebrow">Rekor diem-dieman</div>
+   <p class="big" style="color:${C.sambal}">2 jam 14 menit</p>
+   <p class="lead">13 Maret, 20.02–22.16.</p>
+   <ul class="rows">
+     <li><span class="n">→</span><span class="t">Penyebab</span><span class="v">telat jemput 40 mnt</span></li>
+     <li><span class="n">→</span><span class="t">Diakhiri dengan</span><span class="v">martabak</span></li>
+   </ul>
+   <div class="spacer"></div>
+   <p class="lead" style="font-size:19px">"yaudah sini aku beliin martabak"</p>
+   <p class="small">Kata "maaf" dikirim 312 kali. Raka 201, Nadia 111.</p>`,
+   note:{title:"Momen konyol", data:["Jeda chat terpanjang (atau berantem yang sekarang udah jadi bahan ketawa)","Penyebab dan cara baikannya"],
+     source:"Jeda terpanjang bisa dicari dari file chat. Penyebabnya dari ingatan.",
+     tips:["Pilih yang udah selesai dan sekarang lucu. Jangan yang masih sensitif.","Slide 'drama' di tengah bikin alur naik-turun, nggak datar."],
+     alt:["Typo paling legendaris: 'aku sayang kamy'.","Voice note terpanjang: 6 menit 40 detik, isinya curhat dosen."]}},
+
+ { bg:C.terpal, fg:C.paper, html:`
+   <div class="eyebrow">Ketemu langsung</div>
+   ${num(187)}
+   <p class="lead">hari tatap muka. Sisanya lewat layar.</p>
+   <div class="spacer"></div>
+   <div class="months" aria-label="Hari ketemu per bulan">${months.map(m=>`<div style="height:${m/20*100}%"></div>`).join("")}</div>
+   <div class="axis"><span>Jan</span><span>Jun</span><span>Des</span></div>
+   <p class="small">±2.340 km boncengan motor. Kayak Jakarta–Surabaya tiga kali.</p>`,
+   note:{title:"Waktu bareng", data:["Jumlah hari ketemu (per bulan kalau ada)","(opsional) jarak tempuh berdua"],
+     source:"Kalender, galeri foto (hitung tanggal yang ada foto berdua), atau Google Maps Timeline.",
+     tips:["Galeri foto paling gampang: filter foto berdua, hitung tanggal unik.","Kalau LDR, ganti jadi 'jam video call'."],
+     alt:["Total jam video call: 214 jam.","Foto berdua tahun ini: 1.430. Yang layak upload: 12."]}},
+
+ { bg:C.kunyit, fg:C.ink, html:`
+   <div class="eyebrow">Tipe pasangan kalian</div>
+   <div class="spacer" style="flex:.5"></div>
+   <p class="big" style="font-size:48px">Duo Jajan Tengah Malam</p>
+   <p class="lead" style="font-size:18px">Rame pas orang lain udah tidur, bahagia kalau ada sambal, baikan pakai makanan.</p>
+   <div class="spacer"></div>
+   <div class="traits"><span>Night owl</span><span>Anti ribet</span><span>Pecinta sambal</span><span>Saling ngingetin makan</span></div>`,
+   note:{title:"Tipe pasangan", data:["Kesimpulan dari semua slide sebelumnya"],
+     source:"Rangkuman sendiri. Ini versi 'listening personality' di Wrapped.",
+     tips:["Beri nama julukan yang bisa dipakai jadi inside joke ke depannya.","3–4 label pendek cukup."],
+     alt:["Pasangan Mode Hemat Kuota","Tim 'Terserah Kamu Aja'"]}},
+
+ { bg:C.sambal, fg:C.ink, html:`
+   <div class="eyebrow">Raka & Nadia · 2026</div>
+   <p class="big" style="font-size:44px">Tahun kita, singkatnya</p>
+   <div class="grid2">
+     <div><b>48.312</b><span>pesan</span></div>
+     <div><b>1.284</b><span>"udah makan belum?"</span></div>
+     <div><b>23.47</b><span>jam paling rame</span></div>
+     <div><b>37×</b><span>pecel lele depan kampus</span></div>
+     <div><b>Komang</b><span>lagu kita</span></div>
+     <div><b>187</b><span>hari ketemu</span></div>
+   </div>
+   <div class="spacer"></div>
+   <p class="lead" style="font-size:19px">Makasih udah jadi orang yang paling sering nanya aku udah makan atau belum.</p>
+   <p class="hint">SAMPAI KETEMU DI KITA WRAPPED 2027</p>`,
+   note:{title:"Penutup & ringkasan", data:["4–6 angka terbaik dari slide sebelumnya","Satu kalimat penutup"],
+     source:"Ambil dari slide-slide di atas.",
+     tips:["Slide ini yang bakal di-screenshot, jadi bikin rapi dan bisa berdiri sendiri.","Kalimat terakhir boleh tulus. Setelah banyak roasting, ini yang bikin terharu."],
+     alt:["Ada satu angka yang belum kehitung: berapa kali aku bersyukur ketemu kamu.","Sabtu ini, pecel lele? Aku yang traktir."]}}
+];
+
+const card = document.getElementById("card"), slot = document.getElementById("slot"),
+      bars = document.getElementById("bars"), notes = document.getElementById("notes"),
+      prev = document.getElementById("prev"), next = document.getElementById("next"),
+      count = document.getElementById("count");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let i = 0;
+
+bars.innerHTML = slides.map((_,k)=>`<button type="button" aria-label="Slide ${k+1}"></button>`).join("");
+[...bars.children].forEach((b,k)=>b.addEventListener("click",e=>{e.stopPropagation();go(k)}));
+
+function countUp(root){
+  if(reduce) return;
+  root.querySelectorAll("[data-count]").forEach(el=>{
+    const target = +el.dataset.count, t0 = performance.now(), dur = 900;
+    const step = t => { const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,3);
+      el.textContent = fmt(Math.round(target*e)); if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+
+function render(animate){
+  const s = slides[i];
+  card.style.setProperty("--bg", s.bg); card.style.setProperty("--fg", s.fg);
+  slot.innerHTML = `<div class="slide${animate?' enter':''}">${s.html}</div>`;
+  [...bars.children].forEach((b,k)=>{b.className = k<i?"done":k===i?"on":""});
+  count.textContent = `${i+1} / ${slides.length}`;
+  prev.disabled = i===0; next.disabled = i===slides.length-1;
+  const n = s.note;
+  notes.innerHTML = `
+    <div class="label">Catatan arah · slide ${i+1}</div>
+    <h2>${n.title}</h2>
+    <dl>
+      <div><dt>Data yang dibutuhin</dt><dd><ul>${n.data.map(d=>`<li>${d}</li>`).join("")}</ul></dd></div>
+      <div><dt>Ambil dari mana</dt><dd>${n.source}</dd></div>
+      <div><dt>Tips ngarahin</dt><dd><ul>${n.tips.map(d=>`<li>${d}</li>`).join("")}</ul></dd></div>
+      <div><dt>Alternatif isi slide ini</dt><dd class="alt">${n.alt.map(d=>`<q>${d}</q>`).join("")}</dd></div>
+    </dl>`;
+  if(animate) countUp(slot);
+}
+function go(k){ if(k<0||k>=slides.length||k===i) return; i=k; render(true); }
+
+card.addEventListener("click", e=>{
+  const r = card.getBoundingClientRect();
+  (e.clientX - r.left < r.width*0.3) ? go(i-1) : go(i+1);
+});
+prev.addEventListener("click", ()=>go(i-1));
+next.addEventListener("click", ()=>go(i+1));
+document.addEventListener("keydown", e=>{
+  if(e.key==="ArrowRight") go(i+1);
+  if(e.key==="ArrowLeft") go(i-1);
+});
+render(false);
+})();
+</script>
+</body>
+</html>
